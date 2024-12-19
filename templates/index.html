@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ static_section.title }}</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="custom-header">
+        <div class="header-container">
+            <div class="logo-container">
+                <img src="{{ static_section.logo }}" alt="Логотип" class="logo">
+            </div>
+            <div class="title-container">
+                <h1>{{ static_section.title|safe }}</h1>
+
+            </div>
+        </div>
+        <nav class="header-nav">
+            <ul>
+                {% for menu_item in static_section.menu %}
+                    <li><a href="#{{ menu_item.id }}">{{ menu_item.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Static Sections -->
+    {% for section in static_section.sections %}
+        <section id="{{ section.id }}" class="static-section">
+            <h2>{{ section.title }}</h2>
+            <div class="content">
+                <p>{{ section.content }}</p>
+                <img src="{{ section.image }}" alt="{{ section.title }}">
+            </div>
+        </section>
+    {% endfor %}
+
+    <!-- Gallery -->
+    <section id="gallery" class="gallery-section">
+        <h2>Галерея</h2>
+        <div class="gallery">
+            {% for item in gallery_items %}
+                {% if item.filetype == 'image' %}
+                    <div class="gallery-item">
+                        <img src="{{ url_for('static', filename='uploads/' + item.filename) }}" alt="Image">
+                    </div>
+                {% elif item.filetype == 'video' %}
+                    <div class="gallery-item">
+                        <video controls>
+                            <source src="{{ url_for('static', filename='uploads/' + item.filename) }}">
+                        </video>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Contact Button -->
+    <section id="contact">
+        <button onclick="alert('Здесь будет форма контактов')">Контакты</button>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        {% if footer_content.image %}
+            <img src="{{ url_for('static', filename='uploads/' + footer_content.image) }}" alt="Footer Image">
+        {% endif %}
+        <p>{{ footer_content.text }}</p>
+    </footer>
+</body>
+</html>

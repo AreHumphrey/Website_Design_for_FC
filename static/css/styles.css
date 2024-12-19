@@ -1,0 +1,224 @@
+/* Основные стили */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f8f9fa;
+    color: #333;
+}
+
+/* Шапка */
+.custom-header {
+    background: linear-gradient(to right, #EE1C25, #2E3192); /* Градиентный фон */
+    color: white;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: left;
+    position: relative;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.logo-container {
+    flex: 0 0 auto;
+    margin-left: -10%;
+}
+
+
+.logo {
+    width: 250px;
+    height: auto;
+}
+
+.title-container {
+    margin-left: 60px; /* Сдвиг текста вправо относительно логотипа */
+    flex-grow: 1; /* Заставляет текст занимать доступное пространство */
+    text-align: center;
+}
+
+.title-container h1 {
+    font-size: 2.7em;
+    margin: 0;
+    font-weight: bold;
+    padding: 50px;
+    line-height: 1.5;
+    letter-spacing: 2px;
+    text-align: center;
+    margin: 0;
+}
+
+
+.header-nav {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 1200px;
+    text-align: center;
+}
+
+.header-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+}
+
+.header-nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 1.4em;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.header-nav ul li a:hover {
+    color: #FFD700; /* Золотистый оттенок при наведении */
+}
+
+
+.static-section {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.static-section h2 {
+    font-size: 1.8em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.static-section .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.static-section img {
+    max-width: 300px;
+    border-radius: 10px;
+}
+
+.gallery-section {
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+}
+
+.gallery-item img, .gallery-item video {
+    max-width: 100%;
+    border-radius: 10px;
+}
+
+#contact {
+    text-align: center;
+    padding: 20px;
+    background: linear-gradient(to right, #ff7e5f, #feb47b);
+    color: white;
+}
+
+#contact button {
+    padding: 10px 20px;
+    background: white;
+    border: none;
+    color: #333;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#contact button:hover {
+    background: #f1f1f1;
+}
+
+footer {
+    background: linear-gradient(to bottom, #4a00e0, #8e2de2);
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+footer img {
+    max-width: 100px;
+    margin-bottom: 10px;
+}
+
+footer p {
+    font-size: 0.9em;
+}
+
+/* Общие стили остаются прежними */
+
+/* Медиа-запросы для мобильных устройств */
+/* Общие стили остаются прежними */
+
+/* Медиа-запросы для мобильных устройств */
+@media (max-width: 768px) {
+    /* Шапка */
+    .custom-header {
+        padding: 20px 10px;
+        flex-direction: column; /* Выравниваем все элементы в колонку */
+        align-items: center;
+        text-align: center;
+    }
+
+    .header-container {
+        flex-direction: column; /* Логотип и текст располагаются по вертикали */
+        justify-content: center;
+    }
+
+    .logo-container {
+        margin: 0 auto; /* Центрируем логотип */
+    }
+
+    .logo {
+        width: 120px; /* Уменьшаем размер логотипа для мобильных */
+    }
+
+    .title-container h1 {
+        font-size: 1.8em; /* Уменьшаем размер текста */
+        margin: 10px 0; /* Отступы вокруг текста */
+    }
+
+    .header-nav ul {
+        flex-direction: column; /* Меню становится вертикальным */
+        gap: 10px; /* Добавляем расстояние между пунктами меню */
+    }
+
+    .header-nav ul li a {
+        font-size: 1em; /* Уменьшаем размер текста меню */
+    }
+}
+
+
+/* Для очень маленьких экранов */
+@media (max-width: 480px) {
+    .logo {
+        width: 120px; /* Ещё меньше логотип */
+    }
+
+    .title-container h1 {
+        font-size: 1.5em; /* Ещё меньше заголовок */
+    }
+
+    .header-nav ul li a {
+        font-size: 0.9em; /* Ещё меньше текст меню */
+    }
+}
+

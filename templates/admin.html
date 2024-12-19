@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Административная панель</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Административная панель</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Редактировать текст</h2>
+            <form method="POST" action="/admin">
+                <textarea name="content_text" rows="5">{{ content.text }}</textarea>
+                <button type="submit" name="action" value="update_text">Сохранить</button>
+            </form>
+        </section>
+
+        <section>
+            <h2>Добавить файл</h2>
+            <form method="POST" action="/admin" enctype="multipart/form-data">
+                <input type="file" name="file" required>
+                <button type="submit" name="action" value="upload_file">Загрузить</button>
+            </form>
+        </section>
+
+        <section>
+            <h2>Галерея</h2>
+            <div class="gallery">
+                {% for item in gallery_items %}
+                    {% if item.filetype == 'image' %}
+                        <div class="gallery-item">
+                            <img src="{{ url_for('static', filename='uploads/' + item.filename) }}" alt="Image">
+                        </div>
+                    {% elif item.filetype == 'video' %}
+                        <div class="gallery-item">
+                            <video controls>
+                                <source src="{{ url_for('static', filename='uploads/' + item.filename) }}" type="video/mp4">
+                            </video>
+                        </div>
+                    {% endif %}
+                    <form method="POST" action="/admin">
+                        <input type="hidden" name="file_id" value="{{ item.id }}">
+                        <button type="submit" name="action" value="delete_file">Удалить</button>
+                    </form>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+</body>
+</html>
