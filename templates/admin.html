@@ -11,41 +11,57 @@
         <h1>Административная панель</h1>
     </header>
     <main>
+        <!-- Редактирование текста -->
         <section>
-            <h2>Редактировать текст</h2>
+            <h2>Редактировать текст описания</h2>
             <form method="POST" action="/admin">
                 <textarea name="content_text" rows="5">{{ content.text }}</textarea>
                 <button type="submit" name="action" value="update_text">Сохранить</button>
             </form>
         </section>
 
+        <!-- Загрузка изображения для описания -->
         <section>
-            <h2>Добавить файл</h2>
+            <h2>Загрузить изображение для описания</h2>
+            <form method="POST" action="/admin" enctype="multipart/form-data">
+                <input type="file" name="description_image" required>
+                <button type="submit" name="action" value="upload_image_description">Загрузить</button>
+            </form>
+            {% if content and content.image %}
+                <div>
+                    <h3>Текущее изображение:</h3>
+                    <img src="{{ url_for('static', filename='uploads/' + content.image) }}" alt="Описание" style="max-width: 200px;">
+                </div>
+            {% endif %}
+        </section>
+
+        <!-- Добавление файла в галерею -->
+        <section>
+            <h2>Добавить файл в галерею</h2>
             <form method="POST" action="/admin" enctype="multipart/form-data">
                 <input type="file" name="file" required>
                 <button type="submit" name="action" value="upload_file">Загрузить</button>
             </form>
         </section>
 
+        <!-- Галерея -->
         <section>
             <h2>Галерея</h2>
             <div class="gallery">
                 {% for item in gallery_items %}
-                    {% if item.filetype == 'image' %}
-                        <div class="gallery-item">
+                    <div class="gallery-item">
+                        {% if item.filetype == 'image' %}
                             <img src="{{ url_for('static', filename='uploads/' + item.filename) }}" alt="Image">
-                        </div>
-                    {% elif item.filetype == 'video' %}
-                        <div class="gallery-item">
+                        {% elif item.filetype == 'video' %}
                             <video controls>
                                 <source src="{{ url_for('static', filename='uploads/' + item.filename) }}" type="video/mp4">
                             </video>
-                        </div>
-                    {% endif %}
-                    <form method="POST" action="/admin">
-                        <input type="hidden" name="file_id" value="{{ item.id }}">
-                        <button type="submit" name="action" value="delete_file">Удалить</button>
-                    </form>
+                        {% endif %}
+                        <form method="POST" action="/admin">
+                            <input type="hidden" name="file_id" value="{{ item.id }}">
+                            <button type="submit" name="action" value="delete_file">Удалить</button>
+                        </form>
+                    </div>
                 {% endfor %}
             </div>
         </section>

@@ -1,4 +1,4 @@
-/* Основные стили */
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -17,6 +17,7 @@ body {
     align-items: center;
     text-align: left;
     position: relative;
+    box-shadow: 0 8px 10px rgba(0, 0, 0, 0.2);
 }
 
 .header-container {
@@ -27,6 +28,7 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+
 }
 
 .logo-container {
@@ -221,4 +223,152 @@ footer p {
         font-size: 0.9em; /* Ещё меньше текст меню */
     }
 }
+/* Секция описания */
+.description-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    max-width: 1000px;
+    margin: 100px auto;
+    padding: 20px;
+    background: #fff; /* Белый фон для контента */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Лёгкая тень */
+
+}
+
+/* Блок текста */
+.description-text {
+    flex: 1;
+    font-size: 1.2em;
+    line-height: 1.6;
+    text-align: center; /* Центрирование текста */
+    color: #333;
+}
+
+/* Заголовок */
+.description-text h2 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    color: #000;
+}
+
+/* Блок изображения */
+.description-image {
+    flex: 0 0 40%;
+    text-align: center;
+}
+
+.description-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    .description-section {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .description-image {
+        flex: 0 0 auto;
+        margin-top: 20px;
+    }
+
+    .description-text {
+        text-align: center;
+    }
+}
+
+
+
+/* Преподаватель */
+/* Секция преподавателя */
+.teacher-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    max-width: 1000px;
+    margin: 100px auto;
+    padding: 20px;
+    background: linear-gradient(to right, #F7A4A9, #AEACD2); /* Градиентный фон */
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень */
+}
+
+/* Блок изображения */
+.teacher-image {
+    flex: 0 0 40%; /* Фиксированная ширина для изображения */
+    text-align: center;
+}
+
+.teacher-image img {
+    max-width: 70%;
+    height: auto;
+    border-radius: 50%;
+    border: 5px solid white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Блок текста */
+.teacher-text {
+    flex: 1;
+    font-size: 1.2em;
+    line-height: 1.6;
+    color: #1E1E1E;
+    text-align: center;
+    padding: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+
+}
+
+.teacher-text h2 {
+    font-size: 1.4em;
+    margin-bottom: 35px;
+    color: #1E1E1E;
+}
+
+.teacher-text h3 {
+    font-size: 1.4em;
+    margin-bottom: 35px;
+    color: #1E1E1E;
+}
+
+.teacher-text p {
+    font-size: 1.0em;
+    margin-bottom: 15px;
+    color: #000000;
+    line-height: 1.4;
+}
+
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    .teacher-section {
+        flex-direction: column; /* Блоки располагаются друг под другом */
+        text-align: center;
+    }
+
+    .teacher-image {
+        margin-bottom: 20px;
+    }
+
+    .teacher-text {
+        text-align: center; /* Центрирование текста */
+    }
+}
+
+.gradient-bar {
+    height: 60px; /* Высота полоски */
+    background: linear-gradient(to right, #EE1C25, #2E3192); /* Градиент */
+    margin: 40px 0; /* Отступы сверху и снизу */
+}
+
+
 

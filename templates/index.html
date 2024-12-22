@@ -7,68 +7,98 @@
     <link rel="stylesheet" href="/static/css/styles.css">
 </head>
 <body>
-    <!-- Header -->
-    <header class="custom-header">
-        <div class="header-container">
-            <div class="logo-container">
-                <img src="{{ static_section.logo }}" alt="Логотип" class="logo">
-            </div>
-            <div class="title-container">
-                <h1>{{ static_section.title|safe }}</h1>
-
-            </div>
+<!-- Header -->
+<header class="custom-header">
+    <div class="header-container">
+        <div class="logo-container">
+            <img src="{{ static_section.logo }}" alt="Логотип" class="logo">
         </div>
-        <nav class="header-nav">
-            <ul>
-                {% for menu_item in static_section.menu %}
-                    <li><a href="#{{ menu_item.id }}">{{ menu_item.name }}</a></li>
-                {% endfor %}
-            </ul>
-        </nav>
-    </header>
-
-    <!-- Static Sections -->
-    {% for section in static_section.sections %}
-        <section id="{{ section.id }}" class="static-section">
-            <h2>{{ section.title }}</h2>
-            <div class="content">
-                <p>{{ section.content }}</p>
-                <img src="{{ section.image }}" alt="{{ section.title }}">
-            </div>
-        </section>
-    {% endfor %}
-
-    <!-- Gallery -->
-    <section id="gallery" class="gallery-section">
-        <h2>Галерея</h2>
-        <div class="gallery">
-            {% for item in gallery_items %}
-                {% if item.filetype == 'image' %}
-                    <div class="gallery-item">
-                        <img src="{{ url_for('static', filename='uploads/' + item.filename) }}" alt="Image">
-                    </div>
-                {% elif item.filetype == 'video' %}
-                    <div class="gallery-item">
-                        <video controls>
-                            <source src="{{ url_for('static', filename='uploads/' + item.filename) }}">
-                        </video>
-                    </div>
-                {% endif %}
+        <div class="title-container">
+            <h1>{{ static_section.title|safe }}</h1>
+        </div>
+    </div>
+    <nav class="header-nav">
+        <ul>
+            {% for menu_item in static_section.menu %}
+            <li><a href="#{{ menu_item.id }}">{{ menu_item.name }}</a></li>
             {% endfor %}
+        </ul>
+    </nav>
+</header>
+
+<!-- Dynamic About Section -->
+<section id="about">
+    <div class="description-section">
+        <div class="description-text">
+            <h2>Описание</h2>
+            <p>
+                {% if content %}
+                {{ content.text }}
+                {% else %}
+                Текстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекст
+                {% endif %}
+            </p>
         </div>
-    </section>
+        <div class="description-image">
+            {% if content and content.image %}
+            <img src="{{ url_for('static', filename='uploads/' + content.image) }}" alt="Описание">
+            {% else %}
+            <p>Изображение не загружено</p>
+            {% endif %}
+        </div>
+    </div>
+</section>
 
-    <!-- Contact Button -->
-    <section id="contact">
-        <button onclick="alert('Здесь будет форма контактов')">Контакты</button>
-    </section>
 
-    <!-- Footer -->
-    <footer>
-        {% if footer_content.image %}
-            <img src="{{ url_for('static', filename='uploads/' + footer_content.image) }}" alt="Footer Image">
+<!-- Teacher Section -->
+<section id="teacher">
+    <div class="teacher-section">
+        <div class="teacher-image">
+            <img src="{{ url_for('static', filename='images/leader_image.jpg') }}" alt="Преподаватель">
+        </div>
+        <div class="teacher-text">
+            <h2>Руководитель</h2>
+            <h3>Наталья Геннадьевна Солодкая</h3>
+            <p>Руководитель танцевально-спортивного коллектива "Ласточка" <br> Мастер Спорта по художественной гимнастике <br> Ст. преподаватель Института физической культуры и спорта ДВФУ</p>
+        </div>
+    </div>
+</section>
+
+
+<section class="gradient-bar"></section>
+
+
+<!-- Gallery Section -->
+<section id="gallery" class="gallery-section">
+    <h2>Галерея</h2>
+    <div class="gallery">
+        {% for item in gallery_items %}
+        {% if item.filetype == 'image' %}
+        <div class="gallery-item">
+            <img src="{{ url_for('static', filename='uploads/' + item.filename) }}" alt="Image">
+        </div>
+        {% elif item.filetype == 'video' %}
+        <div class="gallery-item">
+            <video controls>
+                <source src="{{ url_for('static', filename='uploads/' + item.filename) }}" type="video/mp4">
+            </video>
+        </div>
         {% endif %}
-        <p>{{ footer_content.text }}</p>
-    </footer>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Contact Button -->
+<section id="contact">
+    <button onclick="alert('Здесь будет форма контактов')">Контакты</button>
+</section>
+
+<!-- Footer -->
+<footer>
+    {% if footer_content and footer_content.image %}
+    <img src="{{ url_for('static', filename='uploads/' + footer_content.image) }}" alt="Footer Image">
+    {% endif %}
+    <p>{{ footer_content.text }}</p>
+</footer>
 </body>
 </html>

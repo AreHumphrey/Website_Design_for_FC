@@ -6,19 +6,19 @@ import os
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # Max 16MB upload size
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
 db = SQLAlchemy(app)
 
-# Database models
 class Content(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.Text, nullable=False)
+    image = db.Column(db.String(150), nullable=True)
 
 class GalleryItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     filename = db.Column(db.String(150), nullable=False)
-    filetype = db.Column(db.String(10), nullable=False)  # "image" or "video"
+    filetype = db.Column(db.String(10), nullable=False)
 
 class FooterContent(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -39,6 +39,7 @@ def admin():
         action = request.form.get('action')
 
         if action == 'update_text':
+            # Обновление текста описания
             text = request.form.get('content_text')
             content = Content.query.first()
             if not content:
@@ -47,7 +48,24 @@ def admin():
             else:
                 content.text = text
             db.session.commit()
+
+        elif action == 'upload_image_description':
+            # Загрузка изображения для описания
+            file = request.files['description_image']
+            content = Content.query.first()
+            if file:
+                filename = secure_filename(file.filename)
+                filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                file.save(filepath)
+                if not content:
+                    content = Content(text="", image=filename)
+                    db.session.add(content)
+                else:
+                    content.image = filename
+                db.session.commit()
+
         elif action == 'upload_file':
+            # Загрузка файла в галерею
             file = request.files['file']
             if file:
                 filename = secure_filename(file.filename)
@@ -57,7 +75,9 @@ def admin():
                 gallery_item = GalleryItem(filename=filename, filetype=filetype)
                 db.session.add(gallery_item)
                 db.session.commit()
+
         elif action == 'delete_file':
+            # Удаление файла из галереи
             file_id = request.form.get('file_id')
             gallery_item = GalleryItem.query.get(file_id)
             if gallery_item:
@@ -66,7 +86,9 @@ def admin():
                     os.remove(filepath)
                 db.session.delete(gallery_item)
                 db.session.commit()
+
         elif action == 'update_footer':
+            # Обновление данных подвала
             footer_text = request.form.get('footer_text')
             footer_image = request.files.get('footer_image')
             footer = FooterContent.query.first()
@@ -87,12 +109,17 @@ def admin():
 
         return redirect(url_for('admin'))
 
+    # Получение данных для отображения в административной панели
     content = Content.query.first()
     gallery_items = GalleryItem.query.all()
     footer_content = FooterContent.query.first()
     return render_template('admin.html', content=content, gallery_items=gallery_items, footer_content=footer_content)
 
-# Static section content
+
+@app.route('/teacher')
+def teacher():
+    return render_template('teacher.html')
+
 @app.context_processor
 def inject_static_content():
     static_section = {
@@ -111,7 +138,6 @@ def inject_static_content():
     }
     return dict(static_section=static_section)
 
-# Initialize database
 with app.app_context():
     db.create_all()
     if not Content.query.first():
