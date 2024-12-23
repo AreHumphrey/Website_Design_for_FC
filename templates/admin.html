@@ -57,10 +57,12 @@
                                 <source src="{{ url_for('static', filename='uploads/' + item.filename) }}" type="video/mp4">
                             </video>
                         {% endif %}
+
                         <form method="POST" action="/admin">
                             <input type="hidden" name="file_id" value="{{ item.id }}">
                             <button type="submit" name="action" value="delete_file">Удалить</button>
                         </form>
+
                     </div>
                 {% endfor %}
             </div>

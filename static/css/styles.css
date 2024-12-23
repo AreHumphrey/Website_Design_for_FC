@@ -243,11 +243,10 @@ footer p {
     flex: 1;
     font-size: 1.2em;
     line-height: 1.6;
-    text-align: center; /* Центрирование текста */
+    text-align: center;
     color: #333;
 }
 
-/* Заголовок */
 .description-text h2 {
     font-size: 1.8em;
     margin-bottom: 20px;
@@ -367,7 +366,7 @@ footer p {
 .gradient-bar {
     height: 60px; /* Высота полоски */
     background: linear-gradient(to right, #EE1C25, #2E3192); /* Градиент */
-    margin: 40px 0; /* Отступы сверху и снизу */
+    margin: 40px 0;
 }
 
 

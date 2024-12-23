@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/static/css/styles.css">
 </head>
 <body>
-<!-- Header -->
+
 <header class="custom-header">
     <div class="header-container">
         <div class="logo-container">
@@ -50,7 +50,6 @@
 </section>
 
 
-<!-- Teacher Section -->
 <section id="teacher">
     <div class="teacher-section">
         <div class="teacher-image">
@@ -67,8 +66,6 @@
 
 <section class="gradient-bar"></section>
 
-
-<!-- Gallery Section -->
 <section id="gallery" class="gallery-section">
     <h2>Галерея</h2>
     <div class="gallery">
@@ -88,12 +85,10 @@
     </div>
 </section>
 
-<!-- Contact Button -->
 <section id="contact">
     <button onclick="alert('Здесь будет форма контактов')">Контакты</button>
 </section>
 
-<!-- Footer -->
 <footer>
     {% if footer_content and footer_content.image %}
     <img src="{{ url_for('static', filename='uploads/' + footer_content.image) }}" alt="Footer Image">
