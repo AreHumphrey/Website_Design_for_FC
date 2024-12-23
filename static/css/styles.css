@@ -112,21 +112,63 @@ body {
     border-radius: 10px;
 }
 
-.gallery-section {
-    padding: 40px 20px;
-    text-align: center;
-}
-
+/* Gallery grid for images */
+/* CSS для галереи и видео */
 .gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
+    margin: 20px 0;
+    margin-bottom: 40px;
 }
 
-.gallery-item img, .gallery-item video {
-    max-width: 100%;
-    border-radius: 10px;
+.gallery-item img {
+    width: 100%;
+    height: 350px; /* Увеличенная высота изображений */
+    object-fit: cover; /* Подгонка изображений */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+
+.videos {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.video-item video {
+    width: 60%; /* Уменьшенный размер видео */
+    max-height: 250px; /* Уменьшенная высота видео */
+    margin: 0 auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+h2 {
+    text-align: center; /* Центровка заголовка */
+    font-size: 1.8em;
+    margin-bottom: 20px;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    .gallery {
+        grid-template-columns: repeat(2, 1fr); /* Two columns for smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .gallery {
+        grid-template-columns: 1fr; /* Single column for very small screens */
+    }
+
+    .video-item video {
+        max-width: 100%; /* Videos fit the screen width on small screens */
+    }
+}
+
+
 
 #contact {
     text-align: center;

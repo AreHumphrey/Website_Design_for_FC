@@ -116,6 +116,7 @@ def admin():
     return render_template('admin.html', content=content, gallery_items=gallery_items, footer_content=footer_content)
 
 
+
 @app.route('/teacher')
 def teacher():
     return render_template('teacher.html')

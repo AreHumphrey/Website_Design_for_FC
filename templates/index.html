@@ -66,24 +66,33 @@
 
 <section class="gradient-bar"></section>
 
-<section id="gallery" class="gallery-section">
+<!-- Галерея -->
+<section>
     <h2>Галерея</h2>
     <div class="gallery">
+        <!-- Display images in 3 columns -->
         {% for item in gallery_items %}
-        {% if item.filetype == 'image' %}
-        <div class="gallery-item">
-            <img src="{{ url_for('static', filename='uploads/' + item.filename) }}" alt="Image">
-        </div>
-        {% elif item.filetype == 'video' %}
-        <div class="gallery-item">
-            <video controls>
-                <source src="{{ url_for('static', filename='uploads/' + item.filename) }}" type="video/mp4">
-            </video>
-        </div>
-        {% endif %}
+            {% if item.filetype == 'image' %}
+                <div class="gallery-item">
+                    <img src="{{ url_for('static', filename='uploads/' + item.filename) }}" alt="Image">
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="videos">
+        <!-- Display videos in a single column -->
+        {% for item in gallery_items %}
+            {% if item.filetype == 'video' %}
+                <div class="video-item">
+                    <video controls>
+                        <source src="{{ url_for('static', filename='uploads/' + item.filename) }}" type="video/mp4">
+                    </video>
+                </div>
+            {% endif %}
         {% endfor %}
     </div>
 </section>
+
 
 <section id="contact">
     <button onclick="alert('Здесь будет форма контактов')">Контакты</button>
