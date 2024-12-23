@@ -112,8 +112,8 @@ body {
     border-radius: 10px;
 }
 
-/* Gallery grid for images */
-/* CSS для галереи и видео */
+
+
 .gallery {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -124,10 +124,22 @@ body {
 
 .gallery-item img {
     width: 100%;
-    height: 350px; /* Увеличенная высота изображений */
-    object-fit: cover; /* Подгонка изображений */
+    height: 400px;
+    object-fit: cover;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.gallery-item img:hover {
+    transform: scale(1.05);
+}
+
+h2 {
+    text-align: center;
+    font-size: 1.8em;
+    margin-bottom: 25px;
+
 }
 
 .videos {
@@ -137,48 +149,49 @@ body {
     margin-top: 30px;
 }
 
+.video-item {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin: 20px 0;
+}
+
 .video-item video {
-    width: 60%; /* Уменьшенный размер видео */
-    max-height: 250px; /* Уменьшенная высота видео */
-    margin: 0 auto;
+    width: 80%;
+    max-height: 250px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-h2 {
-    text-align: center; /* Центровка заголовка */
-    font-size: 1.8em;
-    margin-bottom: 20px;
-}
 
-/* Responsive design for smaller screens */
 @media (max-width: 768px) {
     .gallery {
-        grid-template-columns: repeat(2, 1fr); /* Two columns for smaller screens */
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media (max-width: 480px) {
     .gallery {
-        grid-template-columns: 1fr; /* Single column for very small screens */
+        grid-template-columns: 1fr;
     }
 
     .video-item video {
-        max-width: 100%; /* Videos fit the screen width on small screens */
+        max-width: 100%;
     }
 }
 
 
-
 #contact {
-    text-align: center;
-    padding: 20px;
-    background: linear-gradient(to right, #ff7e5f, #feb47b);
+    text-align: right;
+    padding: 40px;
+    background: linear-gradient(to right,  #EE1C25, #2E3192);
     color: white;
+    margin-top: 40px;
+
 }
 
 #contact button {
-    padding: 10px 20px;
+    padding: 20px 35px;
     background: white;
     border: none;
     color: #333;
@@ -207,86 +220,77 @@ footer p {
     font-size: 0.9em;
 }
 
-/* Общие стили остаются прежними */
-
-/* Медиа-запросы для мобильных устройств */
-/* Общие стили остаются прежними */
-
-/* Медиа-запросы для мобильных устройств */
 @media (max-width: 768px) {
-    /* Шапка */
+
     .custom-header {
         padding: 20px 10px;
-        flex-direction: column; /* Выравниваем все элементы в колонку */
+        flex-direction: column;
         align-items: center;
         text-align: center;
     }
 
     .header-container {
-        flex-direction: column; /* Логотип и текст располагаются по вертикали */
+        flex-direction: column;
         justify-content: center;
     }
 
     .logo-container {
-        margin: 0 auto; /* Центрируем логотип */
+        margin: 0 auto;
     }
 
     .logo {
-        width: 120px; /* Уменьшаем размер логотипа для мобильных */
+        width: 120px;
     }
 
     .title-container h1 {
-        font-size: 1.8em; /* Уменьшаем размер текста */
-        margin: 10px 0; /* Отступы вокруг текста */
+        font-size: 1.8em;
+        margin: 10px 0;
     }
 
     .header-nav ul {
-        flex-direction: column; /* Меню становится вертикальным */
-        gap: 10px; /* Добавляем расстояние между пунктами меню */
+        flex-direction: column;
+        gap: 10px;
     }
 
     .header-nav ul li a {
-        font-size: 1em; /* Уменьшаем размер текста меню */
+        font-size: 1em;
     }
 }
 
 
-/* Для очень маленьких экранов */
 @media (max-width: 480px) {
     .logo {
-        width: 120px; /* Ещё меньше логотип */
+        width: 120px;
     }
 
     .title-container h1 {
-        font-size: 1.5em; /* Ещё меньше заголовок */
+        font-size: 1.5em;
     }
 
     .header-nav ul li a {
-        font-size: 0.9em; /* Ещё меньше текст меню */
+        font-size: 0.9em;
     }
 }
-/* Секция описания */
+
 .description-section {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 20px;
+    gap: 60px;
     max-width: 1000px;
     margin: 100px auto;
     padding: 20px;
-    background: #fff; /* Белый фон для контента */
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Лёгкая тень */
-
 }
 
-/* Блок текста */
 .description-text {
     flex: 1;
+    max-width: 600px;
     font-size: 1.2em;
     line-height: 1.6;
     text-align: center;
     color: #333;
+    word-wrap: break-word;
 }
 
 .description-text h2 {
@@ -295,7 +299,6 @@ footer p {
     color: #000;
 }
 
-/* Блок изображения */
 .description-image {
     flex: 0 0 40%;
     text-align: center;
@@ -305,10 +308,9 @@ footer p {
     max-width: 100%;
     height: auto;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Адаптивность для мобильных устройств */
+
 @media (max-width: 768px) {
     .description-section {
         flex-direction: column;
@@ -326,9 +328,6 @@ footer p {
 }
 
 
-
-/* Преподаватель */
-/* Секция преподавателя */
 .teacher-section {
     display: flex;
     align-items: center;
@@ -337,14 +336,13 @@ footer p {
     max-width: 1000px;
     margin: 100px auto;
     padding: 20px;
-    background: linear-gradient(to right, #F7A4A9, #AEACD2); /* Градиентный фон */
+    background: linear-gradient(to right, #F7A4A9, #AEACD2);
     border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Блок изображения */
 .teacher-image {
-    flex: 0 0 40%; /* Фиксированная ширина для изображения */
+    flex: 0 0 40%;
     text-align: center;
 }
 
@@ -356,7 +354,6 @@ footer p {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Блок текста */
 .teacher-text {
     flex: 1;
     font-size: 1.2em;
@@ -389,10 +386,9 @@ footer p {
 }
 
 
-/* Адаптивность для мобильных устройств */
 @media (max-width: 768px) {
     .teacher-section {
-        flex-direction: column; /* Блоки располагаются друг под другом */
+        flex-direction: column;
         text-align: center;
     }
 
@@ -401,15 +397,159 @@ footer p {
     }
 
     .teacher-text {
-        text-align: center; /* Центрирование текста */
+        text-align: center;
     }
 }
 
 .gradient-bar {
-    height: 60px; /* Высота полоски */
-    background: linear-gradient(to right, #EE1C25, #2E3192); /* Градиент */
+    height: 60px;
+    background: linear-gradient(to right, #EE1C25, #2E3192);
     margin: 40px 0;
 }
+
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: white;
+    margin: auto;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 50%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.modal-content h2 {
+    margin-top: 0;
+}
+
+.modal-close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.modal-close:hover,
+.modal-close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#contact-section {
+    background: linear-gradient(to right, #EE1C25, #2E3192);
+    padding: 40px;
+    display: flex;
+    justify-content: right;
+    align-items: right;
+}
+
+#contact-button {
+    background: white;
+    color: #333;
+    padding: 15px 25px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#contact-button:hover {
+    background: #f1f1f1;
+    color: #000;
+}
+
+#contact-button:active {
+    transform: translateY(2px);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+.news-container {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    margin: 20px auto;
+    max-width: 1200px;
+    padding: 0 20px;
+}
+
+.news-item {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+.news-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.news-item img {
+    width: 400px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.news-text {
+    flex: 1;
+    text-align: center;
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+.news-text h3 {
+    margin: 0 0 10px;
+    font-size: 28px;
+    color: #333;
+}
+
+.news-text p {
+    margin: 0;
+    color: #666;
+}
+
+
+/* Footer Styles */
+footer {
+    background: linear-gradient(to top, #00008B, #FFFFFF);
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 18px;
+    position: relative;
+    margin-top: 100px;
+    text-align: center;
+}
+
+
+
 
 
 

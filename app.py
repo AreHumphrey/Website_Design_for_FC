@@ -25,13 +25,25 @@ class FooterContent(db.Model):
     image = db.Column(db.String(150), nullable=True)
     text = db.Column(db.Text, nullable=True)
 
-# Routes
+class News(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(150), nullable=False)
+    description = db.Column(db.Text, nullable=False)
+    image = db.Column(db.String(150), nullable=True)
+
 @app.route('/')
 def home():
     content = Content.query.first()
     gallery_items = GalleryItem.query.all()
     footer_content = FooterContent.query.first()
-    return render_template('index.html', content=content, gallery_items=gallery_items, footer_content=footer_content)
+    news_items = News.query.all()
+    return render_template(
+        'index.html',
+        content=content,
+        gallery_items=gallery_items,
+        footer_content=footer_content,
+        news_items=news_items
+    )
 
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
@@ -39,7 +51,6 @@ def admin():
         action = request.form.get('action')
 
         if action == 'update_text':
-            # Обновление текста описания
             text = request.form.get('content_text')
             content = Content.query.first()
             if not content:
@@ -50,7 +61,6 @@ def admin():
             db.session.commit()
 
         elif action == 'upload_image_description':
-            # Загрузка изображения для описания
             file = request.files['description_image']
             content = Content.query.first()
             if file:
@@ -65,7 +75,6 @@ def admin():
                 db.session.commit()
 
         elif action == 'upload_file':
-            # Загрузка файла в галерею
             file = request.files['file']
             if file:
                 filename = secure_filename(file.filename)
@@ -77,7 +86,6 @@ def admin():
                 db.session.commit()
 
         elif action == 'delete_file':
-            # Удаление файла из галереи
             file_id = request.form.get('file_id')
             gallery_item = GalleryItem.query.get(file_id)
             if gallery_item:
@@ -88,7 +96,6 @@ def admin():
                 db.session.commit()
 
         elif action == 'update_footer':
-            # Обновление данных подвала
             footer_text = request.form.get('footer_text')
             footer_image = request.files.get('footer_image')
             footer = FooterContent.query.first()
@@ -107,15 +114,45 @@ def admin():
 
             db.session.commit()
 
+        elif action == 'add_news':
+            title = request.form.get('news_title')
+            description = request.form.get('news_description')
+            file = request.files['news_image']
+            filename = None
+
+            if file:
+                filename = secure_filename(file.filename)
+                filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                file.save(filepath)
+
+            news_item = News(title=title, description=description, image=filename)
+            db.session.add(news_item)
+            db.session.commit()
+
+        elif action == 'delete_news':
+            news_id = request.form.get('news_id')
+            news_item = News.query.get(news_id)
+            if news_item:
+                if news_item.image:
+                    filepath = os.path.join(app.config['UPLOAD_FOLDER'], news_item.image)
+                    if os.path.exists(filepath):
+                        os.remove(filepath)
+                db.session.delete(news_item)
+                db.session.commit()
+
         return redirect(url_for('admin'))
 
-    # Получение данных для отображения в административной панели
     content = Content.query.first()
     gallery_items = GalleryItem.query.all()
     footer_content = FooterContent.query.first()
-    return render_template('admin.html', content=content, gallery_items=gallery_items, footer_content=footer_content)
-
-
+    news_items = News.query.all()
+    return render_template(
+        'admin.html',
+        content=content,
+        gallery_items=gallery_items,
+        footer_content=footer_content,
+        news_items=news_items
+    )
 
 @app.route('/teacher')
 def teacher():

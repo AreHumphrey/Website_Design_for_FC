@@ -50,7 +50,7 @@
 </section>
 
 
-<section id="teacher">
+<section id="leader">
     <div class="teacher-section">
         <div class="teacher-image">
             <img src="{{ url_for('static', filename='images/leader_image.jpg') }}" alt="Преподаватель">
@@ -67,7 +67,7 @@
 <section class="gradient-bar"></section>
 
 <!-- Галерея -->
-<section>
+<section id="gallery">
     <h2>Галерея</h2>
     <div class="gallery">
         <!-- Display images in 3 columns -->
@@ -95,14 +95,76 @@
 
 
 <section id="contact">
-    <button onclick="alert('Здесь будет форма контактов')">Контакты</button>
+    <button id="contact-button">Контакты</button>
 </section>
+
+<div id="contact-modal" class="modal">
+    <div class="modal-content">
+        <span class="modal-close">&times;</span>
+        <h2>Контакты</h2>
+        <p>Email: example@example.com</p>
+        <p>Телефон: +7 (999) 123-45-67</p>
+    </div>
+</div>
+
+<section id="news">
+    <h2 style="text-align: center;">Новости</h2>
+    <div class="news-container">
+        {% for news in news_items %}
+            <div class="news-item {% if loop.index % 2 == 0 %}news-reverse{% endif %}">
+                {% if loop.index % 2 == 0 %}
+                    <div class="news-text">
+                        <h3>{{ news.title }}</h3>
+                        <p>{{ news.description }}</p>
+                    </div>
+                    {% if news.image %}
+                        <div class="news-image">
+                            <img src="{{ url_for('static', filename='uploads/' + news.image) }}" alt="News Image">
+                        </div>
+                    {% endif %}
+                {% else %}
+                    {% if news.image %}
+                        <div class="news-image">
+                            <img src="{{ url_for('static', filename='uploads/' + news.image) }}" alt="News Image">
+                        </div>
+                    {% endif %}
+                    <div class="news-text">
+                        <h3>{{ news.title }}</h3>
+                        <p>{{ news.description }}</p>
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+
 
 <footer>
     {% if footer_content and footer_content.image %}
     <img src="{{ url_for('static', filename='uploads/' + footer_content.image) }}" alt="Footer Image">
     {% endif %}
-    <p>{{ footer_content.text }}</p>
 </footer>
 </body>
+
+<script>
+    const modal = document.getElementById("contact-modal");
+    const btn = document.getElementById("contact-button");
+    const span = document.getElementsByClassName("modal-close")[0];
+
+    btn.onclick = function () {
+        modal.style.display = "flex";
+    };
+
+    span.onclick = function () {
+        modal.style.display = "none";
+    };
+
+    window.onclick = function (event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    };
+</script>
+
 </html>

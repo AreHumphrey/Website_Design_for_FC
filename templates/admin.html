@@ -47,19 +47,50 @@
         <!-- Галерея -->
         <section>
             <h2>Галерея</h2>
-            <div class="gallery">
+            <div class="gallery" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
                 {% for item in gallery_items %}
-                    <div class="gallery-item">
-                        {% if item.filetype == 'image' %}
-                            <img src="{{ url_for('static', filename='uploads/' + item.filename) }}" alt="Image">
-                        {% elif item.filetype == 'video' %}
-                            <video controls>
+                    {% if item.filetype == 'image' %}
+                        <div class="gallery-item">
+                            <img src="{{ url_for('static', filename='uploads/' + item.filename) }}" alt="Image" style="width: 100%; height: 300px; object-fit: cover;">
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="videos">
+                {% for item in gallery_items %}
+                    {% if item.filetype == 'video' %}
+                        <div class="video-item" style="margin: 20px auto; text-align: center;">
+                            <video controls style="width: 80%; max-height: 300px;">
                                 <source src="{{ url_for('static', filename='uploads/' + item.filename) }}" type="video/mp4">
                             </video>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- Новости -->
+        <section>
+            <h2>Добавить новость</h2>
+            <form method="POST" action="/admin" enctype="multipart/form-data">
+                <input type="text" name="news_title" placeholder="Заголовок новости" required>
+                <textarea name="news_description" rows="4" placeholder="Описание новости" required></textarea>
+                <input type="file" name="news_image">
+                <button type="submit" name="action" value="add_news">Добавить новость</button>
+            </form>
+
+            <h2>Список новостей</h2>
+            <div class="news-list" style="display: flex; flex-direction: column; gap: 20px;">
+                {% for news in news_items %}
+                    <div class="news-item" style="border: 1px solid #ccc; padding: 15px; border-radius: 5px;">
+                        <h3>{{ news.title }}</h3>
+                        <p>{{ news.description }}</p>
+                        {% if news.image %}
+                            <img src="{{ url_for('static', filename='uploads/' + news.image) }}" alt="News Image" style="max-width: 200px;">
                         {% endif %}
                         <form method="POST" action="/admin">
-                            <input type="hidden" name="file_id" value="{{ item.id }}">
-                            <button type="submit" name="action" value="delete_file">Удалить</button>
+                            <input type="hidden" name="news_id" value="{{ news.id }}">
+                            <button type="submit" name="action" value="delete_news">Удалить</button>
                         </form>
                     </div>
                 {% endfor %}
