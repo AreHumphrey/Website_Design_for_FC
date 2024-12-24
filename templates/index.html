@@ -26,14 +26,13 @@
     </nav>
 </header>
 
-<!-- Dynamic About Section -->
 <section id="about">
     <div class="description-section">
         <div class="description-text">
             <h2>Описание</h2>
             <p>
                 {% if content %}
-                {{ content.text }}
+                {{ content.text}}
                 {% else %}
                 Текстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекст
                 {% endif %}
@@ -49,6 +48,10 @@
     </div>
 </section>
 
+<section id="dynamic-svg">
+    <img src="{{ url_for('static', filename='images/your-svg-file.svg') }}" alt="Движение - жизнь">
+    <div class="svg-overlay-text">Движение - жизнь</div>
+</section>
 
 <section id="leader">
     <div class="teacher-section">
@@ -97,6 +100,15 @@
 <section id="contact">
     <button id="contact-button">Контакты</button>
 </section>
+
+
+<section id="dynamic-svg-1">
+    <div class="svg-container">
+        <img src="{{ url_for('static', filename='images/your-svg-file_2.svg') }}" alt="Движение - жизнь">
+        <div class="svg-overlay-text">Присоединяйся к нам</div>
+    </div>
+</section>
+
 
 <div id="contact-modal" class="modal">
     <div class="modal-content">
