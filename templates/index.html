@@ -10,11 +10,17 @@
 
 <header class="custom-header">
     <div class="header-container">
-        <div class="logo-container">
-            <img src="{{ static_section.logo }}" alt="Логотип" class="logo">
+        <div class="header-left">
+            <div class="logo-container">
+                <img src="{{ static_section.logo }}" alt="Логотип" class="logo">
+            </div>
+            <div class="title-container">
+                <h1>{{ static_section.title|safe }}</h1>
+            </div>
         </div>
-        <div class="title-container">
-            <h1>{{ static_section.title|safe }}</h1>
+        <div class="header-right">
+            <span class="phone">Телефон: +7 (914) 705-34-38</span>
+            <a href="{{ url_for('admin') }}" class="admin-button">Админ</a>
         </div>
     </div>
     <nav class="header-nav">
@@ -26,15 +32,15 @@
     </nav>
 </header>
 
+
 <section id="about">
     <div class="description-section">
         <div class="description-text">
-            <h2>Описание</h2>
             <p>
                 {% if content %}
                 {{ content.text}}
                 {% else %}
-                Текстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекстекст
+                Нет описания
                 {% endif %}
             </p>
         </div>
@@ -50,7 +56,7 @@
 
 <section id="dynamic-svg">
     <img src="{{ url_for('static', filename='images/your-svg-file.svg') }}" alt="Движение - жизнь">
-    <div class="svg-overlay-text">Движение - жизнь</div>
+    <div class="svg-overlay-text">Танец - жизнь</div>
 </section>
 
 <section id="leader">
@@ -73,7 +79,6 @@
 <section id="gallery">
     <h2>Галерея</h2>
     <div class="gallery">
-        <!-- Display images in 3 columns -->
         {% for item in gallery_items %}
             {% if item.filetype == 'image' %}
                 <div class="gallery-item">
@@ -83,7 +88,6 @@
         {% endfor %}
     </div>
     <div class="videos">
-        <!-- Display videos in a single column -->
         {% for item in gallery_items %}
             {% if item.filetype == 'video' %}
                 <div class="video-item">
@@ -105,7 +109,7 @@
 <section id="dynamic-svg-1">
     <div class="svg-container">
         <img src="{{ url_for('static', filename='images/your-svg-file_2.svg') }}" alt="Движение - жизнь">
-        <div class="svg-overlay-text">Присоединяйся к нам</div>
+        <div class="svg-overlay-text">Присоединяйтесь к нам</div>
     </div>
 </section>
 
@@ -114,13 +118,13 @@
     <div class="modal-content">
         <span class="modal-close">&times;</span>
         <h2>Контакты</h2>
-        <p>Email: example@example.com</p>
-        <p>Телефон: +7 (999) 123-45-67</p>
+        <p>Email: klipova_nata@mail.ru</p>
+        <p>Телефон: +7 (914) 705-34-38</p>
     </div>
 </div>
 
 <section id="news">
-    <h2 style="text-align: center;">Новости</h2>
+    <h2 style="text-align: center;"> </h2>
     <div class="news-container">
         {% for news in news_items %}
             <div class="news-item {% if loop.index % 2 == 0 %}news-reverse{% endif %}">

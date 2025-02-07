@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import secure_filename
 import os
@@ -10,26 +10,33 @@ app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
 db = SQLAlchemy(app)
 
+app.config['SECRET_KEY'] = 'Azzza678QWt'
+
+
 class Content(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.Text, nullable=False)
     image = db.Column(db.String(150), nullable=True)
+
 
 class GalleryItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     filename = db.Column(db.String(150), nullable=False)
     filetype = db.Column(db.String(10), nullable=False)
 
+
 class FooterContent(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     image = db.Column(db.String(150), nullable=True)
     text = db.Column(db.Text, nullable=True)
+
 
 class News(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(150), nullable=False)
     description = db.Column(db.Text, nullable=False)
     image = db.Column(db.String(150), nullable=True)
+
 
 @app.route('/')
 def home():
@@ -45,8 +52,31 @@ def home():
         news_items=news_items
     )
 
+
+# Страница входа в админку
+@app.route('/admin/login', methods=['GET', 'POST'])
+def admin_login():
+    if request.method == 'POST':
+        password = request.form.get('password')
+        if password == 'your_admin_password':  # Заменить на нужный пароль
+            session['logged_in'] = True
+            return redirect(url_for('admin'))
+        else:
+            return render_template('login.html', error="Неверный пароль!")
+    return render_template('login.html', error=None)
+
+# Выход из админки
+@app.route('/admin/logout')
+def admin_logout():
+    session.pop('logged_in', None)
+    return redirect(url_for('admin_login'))
+
+
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
+    if 'logged_in' not in session:  # Если пользователь не авторизован, перенаправляем на вход
+        return redirect(url_for('admin_login'))
+
     if request.method == 'POST':
         action = request.form.get('action')
 
@@ -154,9 +184,12 @@ def admin():
         news_items=news_items
     )
 
+
+
 @app.route('/teacher')
 def teacher():
     return render_template('teacher.html')
+
 
 @app.context_processor
 def inject_static_content():
@@ -170,11 +203,15 @@ def inject_static_content():
             {"id": "contact", "name": "Контакты"}
         ],
         "sections": [
-            {"id": "about", "title": "Описание", "content": "Текст описания коллектива...", "image": "static/images/description_image.jpg"},
-            {"id": "leader", "title": "Руководитель", "content": "Наталья Геннадьевна Солодкая - Руководитель коллектива 'Ласточка' и Мастер спорта...", "image": "static/images/leader_image.jpg"}
+            {"id": "about", "title": "Описание", "content": "Текст описания коллектива...",
+             "image": "static/images/description_image.jpg"},
+            {"id": "leader", "title": "Руководитель",
+             "content": "Наталья Геннадьевна Солодкая - Руководитель коллектива 'Ласточка' и Мастер спорта...",
+             "image": "static/images/leader_image.jpg"}
         ]
     }
     return dict(static_section=static_section)
+
 
 with app.app_context():
     db.create_all()
